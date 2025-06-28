@@ -2,28 +2,30 @@
 import { z } from 'zod'
 import Link from 'next/link'
 import { useState } from 'react'
-import { OctagonAlertIcon } from 'lucide-react'
-import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
+import { OctagonAlertIcon } from 'lucide-react'
+import { FaGoogle, FaGithub } from 'react-icons/fa'
+import { zodResolver } from '@hookform/resolvers/zod'
 
-import { authClient } from '@/lib/auth-client'
 import { Input } from '@/components/ui/input'
+import { authClient } from '@/lib/auth-client'
 import { Button } from '@/components/ui/button'
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Alert, AlertTitle } from '@/components/ui/alert'
 import { Card, CardContent } from '@/components/ui/card'
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 
-const formSchema = z.object({
-  name: z.string().min(1, { message: 'Name is required' }),
-  email: z.string().email(),
-  password: z.string().min(1, { message: 'Password is required' }),
-  confirmPassword: z.string().min(1, { message: 'Confirm password is required' }),
-})
-.refine((data) => data.password === data.confirmPassword, {
-  message: 'Passwords don\'t match',
-  path: ['confirmPassword'],
-})
+const formSchema = z
+  .object({
+    name: z.string().min(1, { message: 'Name is required' }),
+    email: z.string().email(),
+    password: z.string().min(1, { message: 'Password is required' }),
+    confirmPassword: z.string().min(1, { message: 'Confirm password is required' }),
+  })
+  .refine(data => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ['confirmPassword'],
+  })
 
 export const SignUpView = () => {
   const router = useRouter()
@@ -40,6 +42,26 @@ export const SignUpView = () => {
     },
   })
 
+  const handleSocialSignIn = (provider: 'github' | 'google') => {
+    setError(null)
+    setPending(true)
+
+    authClient.signIn.social(
+      {
+        provider,
+        callbackURL: '/',
+      },
+      {
+        onSuccess: () => {
+          setPending(false)
+        },
+        onError: ({ error }) => {
+          setError(error.message)
+        },
+      },
+    )
+  }
+
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     setError(null)
     setPending(true)
@@ -48,7 +70,8 @@ export const SignUpView = () => {
       {
         name: values.name,
         email: values.email,
-        password: values.password
+        password: values.password,
+        callbackURL: '/',
       },
       {
         onSuccess: () => {
@@ -143,11 +166,23 @@ export const SignUpView = () => {
                   <span className="bg-card text-muted-foreground relative z-10 px-2">Or continue with</span>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
-                  <Button disabled={pending} variant="outline" type="button" className="w-full">
-                    Google
+                  <Button
+                    onClick={() => handleSocialSignIn('google')}
+                    disabled={pending}
+                    variant="outline"
+                    type="button"
+                    className="w-full"
+                  >
+                    <FaGoogle />
                   </Button>
-                  <Button disabled={pending} variant="outline" type="button" className="w-full">
-                    Github
+                  <Button
+                    onClick={() => handleSocialSignIn('github')}
+                    disabled={pending}
+                    variant="outline"
+                    type="button"
+                    className="w-full"
+                  >
+                    <FaGithub />
                   </Button>
                 </div>
                 <div className="text-center text-sm">
