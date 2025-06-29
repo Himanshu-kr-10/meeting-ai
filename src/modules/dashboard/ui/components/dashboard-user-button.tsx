@@ -54,7 +54,7 @@ export const DashboardUserButton = () => {
       p-3 w-full bg-white/5 hover:bg-white/10 overflow-hidden"
         >
           {data.user.image ? (
-            <Avatar>
+            <Avatar className="size-9 mr-3">
               <AvatarImage src={data.user.image} />
             </Avatar>
           ) : (
@@ -94,7 +94,7 @@ export const DashboardUserButton = () => {
       p-3 w-full bg-white/5 hover:bg-white/10 overflow-hidden"
       >
         {data.user.image ? (
-          <Avatar>
+          <Avatar className='size-9 mr-3'>
             <AvatarImage src={data.user.image} />
           </Avatar>
         ) : (
