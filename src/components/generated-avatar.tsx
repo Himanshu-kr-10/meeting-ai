@@ -16,7 +16,7 @@ export const GeneratedAvatar = ({
   className, 
   variant 
 }: GeneratedAvatarProps) => {
-  let avatar = null;
+  let avatar;
 
   if(variant === 'botttsNeutral') {
     avatar = createAvatar(botttsNeutral, {
