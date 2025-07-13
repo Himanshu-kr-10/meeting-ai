@@ -43,7 +43,7 @@ export const AgentForm = ({ onSuccess, onCancel, initialValues }: AgentFormProps
   )
 
   const updateAgent = useMutation(
-    trpc.agents.udpate.mutationOptions({
+    trpc.agents.update.mutationOptions({
       onSuccess: async () => {
         await queryClient.invalidateQueries(trpc.agents.getMany.queryOptions({}))
 

@@ -70,7 +70,7 @@ const AgentIdView = ({ agentId }: Props) => {
           <div className="px-4 py-5 gap-y-5 flex flex-col col-span-5">
             <div className="flex items-center gap-x-3">
               <GeneratedAvatar variant="botttsNeutral" seed={data.name} className="size-10" />
-              <h2 className="text-2xl font-medium">{data.name}</h2>
+              <h2 className="text-xl font-medium">{data.name}</h2>
             </div>
             <Badge variant="outline" className="flex items-center gap-x-2 [&>svg]:size-4">
               <VideoIcon className="size-4 text-blue-700" />
