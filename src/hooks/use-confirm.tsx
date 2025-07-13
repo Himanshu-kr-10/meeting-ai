@@ -13,7 +13,7 @@ export const useConfirm = (
 
   const confirm = () => {
     return new Promise((resolve) => {
-      return setPromise({ resolve })
+      setPromise({ resolve })
     })
   }
 

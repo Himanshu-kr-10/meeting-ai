@@ -8,7 +8,7 @@ import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE, MAX_PAGE_SIZE, MIN_PAGE_SIZE } from '@
 import { TRPCError } from '@trpc/server'
 
 export const agentsRouter = createTRPCRouter({
-  udpate: protectedProcedure
+  update: protectedProcedure
     .input(updateAgentSchema)
     .mutation(async ({ ctx, input }) => {
       const [updatedAgent] = await db
