@@ -101,7 +101,13 @@ export const meetingsRouter = createTRPCRouter({
         .select({ count: count() })
         .from(meetings)
         .innerJoin(agents, eq(meetings.agentId, agents.id))
-        .where(and(eq(meetings.userId, ctx.auth.user.id), search ? ilike(meetings.name, `%${search}%`) : undefined))
+        .where(
+          and(
+            eq(meetings.userId, ctx.auth.user.id), 
+            search ? ilike(meetings.name, `%${search}%`) : undefined,
+            status ? eq(meetings.status, status) : undefined,
+            agentId ? eq(meetings.agentId, agentId) : undefined
+          ))
 
       const totalPages = Math.ceil(total.count / pageSize)
 

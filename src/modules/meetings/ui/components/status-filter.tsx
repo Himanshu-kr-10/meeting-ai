@@ -28,7 +28,7 @@ const options = [
     children: (
       <div className="gap-x-2 flex items-center capitalize">
         <CircleCheckIcon />
-        {MeetingStatus.Upcoming}
+        {MeetingStatus.Completed}
       </div>
     ),
   },
@@ -38,7 +38,7 @@ const options = [
     children: (
       <div className="gap-x-2 flex items-center capitalize">
         <VideoIcon />
-        {MeetingStatus.Upcoming}
+        {MeetingStatus.Active}
       </div>
     ),
   },
@@ -48,7 +48,7 @@ const options = [
     children: (
       <div className="gap-x-2 flex items-center capitalize">
         <LoaderIcon />
-        {MeetingStatus.Upcoming}
+        {MeetingStatus.Processing}
       </div>
     ),
   },
@@ -58,7 +58,7 @@ const options = [
     children: (
       <div className="gap-x-2 flex items-center capitalize">
         <CircleXIcon />
-        {MeetingStatus.Upcoming}
+        {MeetingStatus.Cancelled}
       </div>
     ),
   },
