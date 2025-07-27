@@ -40,14 +40,14 @@ export const CallConnect = ({
 
   useEffect(() => {
     const _client = new StreamVideoClient({
-      apiKey: process.env.NEXT_PUBLIC_STREAM_API_KEY!,
+      apiKey: process.env.NEXT_PUBLIC_STREAM_VIDEO_API_KEY!,
       user: {
         id: userId,
         name: userName,
-        image: userImage
+        image: userImage,
       },
-      tokenProvider: generateToken
-    });
+      tokenProvider: generateToken,
+    })
 
     setClient(_client);
 
@@ -68,7 +68,7 @@ export const CallConnect = ({
     setCall(_call);
 
     return () => {
-      if(_call.state.callingState === CallingState.LEFT) {
+      if(_call.state.callingState !== CallingState.LEFT) {
         _call.leave();
         _call.endCall();
         setCall(undefined);
